@@ -1,0 +1,123 @@
+<!-- <div class="w-full h-screen bg-gray-100 pt-8"> -->
+<div class="bg-white p-3 max-w-md mx-auto">
+    <div class="text-center">
+        <h1 class="text-3xl font-bold">ToDo App</h1>
+        <!-- <h3>{{inputformparent}}</h3> -->
+        <!-- <button (click)="eventEmt()">Click</button> -->
+        <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+            <div class="mt-4 flex">
+                <input class="w-80 border-b-2 border-gray-500 text-black" type="text" placeholder="Enter your task here"
+                    name="todovalue" ngModel />
+
+                <button
+                    class="ml-2 border-2 border-green-500 p-2 text-green-500 hover:text-white hover:bg-green-500 rounded-lg flex"
+                    type="submit">
+                    <svg class="h-6 w-6" width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+                        stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" />
+                        <circle cx="12" cy="12" r="9" />
+                        <line x1="9" y1="12" x2="15" y2="12" />
+                        <line x1="12" y1="9" x2="12" y2="15" />
+
+                    </svg>
+                    <span>Add</span>
+                </button>
+
+
+
+            </div>
+        </form>
+        <div *ngIf="error" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+            role="alert">
+            <strong class="font-bold">Error!</strong>
+            <span class="block sm:inline">{{error}}</span>
+            <button class="absolute top-0 right-0 mt-4 mr-4" (click)="errorclear()">
+                <svg class="h-6 w-6 text-red-500" fill="currentColor" viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M10 1a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM5 7a1 1 0 0 1 2 0v6a1 1 0 1 1-2 0V7zm8-2a1 1 0 1 1 0 2h-3.586a1 1 0 1 1 0-2H13zm1 10a1 1 0 0 1-2 0V9a1 1 0 1 1 2 0v6z"
+                        clip-rule="evenodd" />
+                </svg>
+            </button>
+        </div>
+    </div>
+    <div class="mt-8">
+        <ul>
+
+            <h3>To Do Items</h3>
+            <li class="p-2 rounded-lg">
+
+                <div class="flex align-middle flex-row justify-between">
+                    <div class="p-2">
+                        <input type="checkbox" class="h-6 w-6" value="true" />
+                    </div>
+                    <div class="p-2">
+                        <p class="text-lg text-black">Tested Todo</p>
+                    </div>
+                    <button class="flex text-red-500 border-2 border-red-500 p-2 rounded-lg">
+                        <svg class="h-6 w-6 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="15" y1="9" x2="9" y2="15" />
+                            <line x1="9" y1="9" x2="15" y2="15" />
+                        </svg>
+                        <span>Remove</span>
+                    </button>
+                </div>
+                <hr class="mt-2" />
+            </li>
+            <li class="p-2 rounded-lg" *ngFor="let list of todolist;let i = index">
+
+                <div class="flex align-middle flex-row justify-between">
+                    <div class="p-2">
+                        <input type="checkbox" class="h-6 w-6" value="true" (click)="checked(i)" />
+                    </div>
+                    <div class="p-2">
+                        <p class="text-lg text-black">{{list}}</p>
+                    </div>
+                    <button class="flex text-red-500 border-2 border-red-500 p-2 rounded-lg" (click)="removetodo(i)">
+                        <svg class="h-6 w-6 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="15" y1="9" x2="9" y2="15" />
+                            <line x1="9" y1="9" x2="15" y2="15" />
+                        </svg>
+                        <span>Remove</span>
+                    </button>
+                </div>
+                <hr class="mt-2" />
+            </li>
+        </ul>
+    </div>
+    <div class="mt-8">
+        <ul>
+            <h3 *ngIf="finishedlist.length>0">Fished To Do Items</h3>
+            <li class="p-2 rounded-lg" *ngFor="let Fished of finishedlist;let i = index">
+
+                <div class="flex align-middle flex-row justify-between">
+
+                    <div class="p-2">
+                        <p class="text-lg text-black">{{Fished}}</p>
+                    </div>
+                    <button class="flex text-red-500 border-2 border-red-500 p-2 rounded-lg"
+                        (click)="removefinishedtodo(i)">
+                        <svg class="h-6 w-6 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="15" y1="9" x2="9" y2="15" />
+                            <line x1="9" y1="9" x2="15" y2="15" />
+                        </svg>
+                        <span>Remove</span>
+                    </button>
+                </div>
+                <hr class="mt-2" />
+            </li>
+        </ul>
+    </div>
+    <div class="mt-8">
+
+        <button (click)="removetodofull()" class="border-2 border-indigo-500 p-2 text-indigo-500 ml-4">Reset Todo
+            List</button>
+    </div>
+</div>
+<!-- </div> -->
